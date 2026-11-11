@@ -121,7 +121,7 @@ export const PROJECTS: Project[] = [
     subtitle: "German Engineering DMS & Jira-Equivalent Project Governance Ecosystem",
     role: "Senior IT Project Manager & System Architect",
     region: "Germany (Remote) · Coders31",
-    image: "/src/assets/images/project_enterprise_saas_1794399148448.jpg",
+    image: "/assets/images/project_enterprise_saas_1794399148448.jpg",
     tech: ["MERN Stack", "AWS Cloud", "Docker", "Jira API", "Microservices", "REST APIs"],
     highlights: [
       { label: "Bug Reduction", value: "30% Post-Release" },
@@ -155,7 +155,7 @@ export const PROJECTS: Project[] = [
     subtitle: "High-Throughput Financial Microservices & Regulatory Compliance Hub",
     role: "Senior IT Project Manager & QA Strategist",
     region: "UK & US Remote · US Tech Solutions",
-    image: "/src/assets/images/project_fintech_platform_1794399149657.jpg",
+    image: "/assets/images/project_fintech_platform_1794399149657.jpg",
     tech: ["Node.js", "Python", "PostgreSQL", "Kafka", "Docker", "Appium", "Jira"],
     highlights: [
       { label: "Release Cycles", value: "25% Shorter" },
@@ -189,7 +189,7 @@ export const PROJECTS: Project[] = [
     subtitle: "Modern High-Conversion Commerce Platform with Automated Inventory Engine",
     role: "IT Project Manager & Technical Lead",
     region: "London, UK · Iconic Code",
-    image: "/src/assets/images/project_ecommerce_omnichannel_1794399150311.jpg",
+    image: "/assets/images/project_ecommerce_omnichannel_1794399150311.jpg",
     tech: ["Next.js", "React", "Node.js", "Stripe API", "MongoDB", "Tailwind CSS", "Redis"],
     highlights: [
       { label: "Checkout Speed", value: "1.8s Load Time" },
@@ -223,7 +223,7 @@ export const PROJECTS: Project[] = [
     subtitle: "Comprehensive Automated SQA & Multi-Device Mobile Ecosystem Validation",
     role: "SQA Team Lead & Test Architect",
     region: "Punjab, Pakistan · CodersBrain",
-    image: "/src/assets/images/project_mobile_food_delivery_1794399149712.jpg",
+    image: "/assets/images/project_mobile_food_delivery_1794399149712.jpg",
     tech: ["Selenium", "Appium", "TestNG", "Python", "Jira", "Postman", "CI/CD"],
     highlights: [
       { label: "Defect Drop", value: "35% Post-Release" },
@@ -257,7 +257,7 @@ export const PROJECTS: Project[] = [
     subtitle: "Cross-Platform Fitness Ecosystem with Tailored Workout Plans and Telemetry",
     role: "Lead Project Manager & Product Strategist",
     region: "Global Deployment · Independent Consultant",
-    image: "/src/assets/images/project_mobile_food_delivery_1794399149712.jpg",
+    image: "/assets/images/project_gogym_fitness_1794405822855.jpg",
     tech: ["React Native", "Node.js", "MongoDB", "Express", "REST APIs", "AWS S3"],
     highlights: [
       { label: "Active Users", value: "100k+ MAU" },
@@ -291,7 +291,7 @@ export const PROJECTS: Project[] = [
     subtitle: "Enterprise OS Compatibility Matrix Across 12 OEM Manufacturers",
     role: "Senior QA Strategist & Systems Specialist",
     region: "Lahore & Global · Iconic Code",
-    image: "/src/assets/images/project_enterprise_saas_1794399148448.jpg",
+    image: "/assets/images/project_android_lab_1794405840239.jpg",
     tech: ["Android SDK", "Appium", "Espresso", "Firebase Test Lab", "Bash", "Linux"],
     highlights: [
       { label: "Compatibility", value: "Android 8.0 to 15" },
@@ -327,7 +327,7 @@ export const BOOKS: Book[] = [
     subtitle: "A practical model for seeing the hidden layers of IT projects",
     focus: "Ocean Trench and Bermuda Triangle strategies for IT delivery",
     meta: "Strategy · Risk Management · Quality Framework",
-    coverImage: "/src/assets/images/book_deep_triangle_framework_1794404355710.jpg",
+    coverImage: "/assets/images/book_deep_triangle_framework_1794404355710.jpg",
     amazonUrl: "https://www.amazon.com/dp/B0HQNY971G",
     description: "Projects rarely fail because of one dramatic mistake. They fail because of what sits in the deep, unseen and unmanaged. The Deep Triangle Framework gives project managers, QA professionals and product owners a shared language for those hidden layers, built on two strategies that work together.",
     keyStrategies: [
@@ -355,7 +355,7 @@ export const BOOKS: Book[] = [
     subtitle: "Bridging delivery and product vision",
     focus: "Connecting delivery decisions to product value and honest progress",
     meta: "Disciplines · Leadership · Agile Alignment",
-    coverImage: "/src/assets/images/book_it_project_product_management_1794404356269.jpg",
+    coverImage: "/assets/images/book_it_project_product_management_1794404356269.jpg",
     amazonUrl: "https://www.amazon.co.uk/dp/B0HPBZPTTW",
     description: "Project management answers how we deliver. Product management answers what we should build and why. This book treats the two disciplines as partners and shows how to run them together, covering realistic planning, stakeholder alignment, connecting delivery decisions to product value, team communication habits, and honest measurement of progress.",
     chaptersSummary: [
@@ -373,7 +373,7 @@ export const BOOKS: Book[] = [
     subtitle: "From first principles to modern professional practice",
     focus: "Software quality from foundations to advanced AI-assisted automation",
     meta: "32 Sections · AI & Code · Modern Automation",
-    coverImage: "/src/assets/images/book_sqa_engineering_ai_code_1794404357042.jpg",
+    coverImage: "/assets/images/book_sqa_engineering_ai_code_1794404357042.jpg",
     amazonUrl: "https://www.amazon.co.uk/dp/B0HM1ZMXHV",
     description: "A single learning path across 32 sections, from what quality really means, the software life cycle, test design and defect management, to automation, code, frameworks, and the practical use of AI as an assistant while keeping human responsibility for quality at the centre.",
     chaptersSummary: [
@@ -392,7 +392,7 @@ export const BOOKS: Book[] = [
     subtitle: "From Revelation to Modern Project Management",
     focus: "Faith, Knowledge, Science, Leadership, Systems, Technology and Human Experience",
     meta: "211 Pages · 25 Parts · 94 Chapters",
-    coverImage: "/src/assets/images/book_lead_plan_deliver_1794404357079.jpg",
+    coverImage: "/assets/images/book_lead_plan_deliver_1794404357079.jpg",
     amazonUrl: "https://www.amazon.co.uk/dp/B0HH7HRZ6J",
     description: "A 211 page exploration of project management as an integrated discipline, drawing together revelation, science, history, and hands on practice into a single framework for responsible leadership in the modern world.",
     chaptersSummary: [
@@ -414,7 +414,7 @@ export const BOOKS: Book[] = [
     subtitle: "2026 Expanded Edition Field Guide",
     focus: "Nine plus years of real-world IT leadership, crisis recoveries, and interview playbook",
     meta: "150 Pages · 37 Chapters · 3 Appendices",
-    coverImage: "/src/assets/images/book_leadership_challenges_success_1794404356866.jpg",
+    coverImage: "/assets/images/book_leadership_challenges_success_1794404356866.jpg",
     amazonUrl: "mailto:ranayaqoot@gmail.com?subject=Inquiry%20regarding%20Leadership,%20Challenges%20and%20Project%20Success%20Stories",
     description: "A practical field guide distilling nine plus years of real world IT leadership: project recoveries, stakeholder conflicts, budget and deadline crises, paired with a hands on playbook of frameworks, templates, and an interview preparation appendix.",
     chaptersSummary: [

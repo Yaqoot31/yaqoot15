@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { X, CheckCircle2, Award, ExternalLink, MapPin, Layers } from 'lucide-react';
 import type { Project } from '../data/portfolioData';
 
@@ -7,32 +8,34 @@ interface ProjectArticleModalProps {
 }
 
 export const ProjectArticleModal: React.FC<ProjectArticleModalProps> = ({ project, onClose }) => {
+  const [imageError, setImageError] = useState(false);
+
   if (!project) return null;
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md overflow-y-auto animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/80 backdrop-blur-md overflow-y-auto animate-fade-in"
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-card text-card-foreground rounded-2xl border border-border shadow-2xl p-6 sm:p-8 md:p-10"
+        className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto bg-card text-card-foreground rounded-2xl border border-border shadow-2xl p-4 sm:p-8 md:p-10"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-full bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+          className="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-full bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors z-20"
           aria-label="Close case study article"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Header Kicker */}
-        <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground mb-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-muted-foreground mb-3 pr-8">
           <span className="font-semibold uppercase tracking-wider text-brand-accent">{project.category}</span>
           <span aria-hidden="true">·</span>
           <span className="flex items-center gap-1">
-            <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
+            <MapPin className="w-3.5 h-3.5 text-brand-cyan" />
             {project.region}
           </span>
           <span aria-hidden="true">·</span>
@@ -40,29 +43,37 @@ export const ProjectArticleModal: React.FC<ProjectArticleModalProps> = ({ projec
         </div>
 
         {/* Title */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-2 text-foreground">
+        <h2 className="text-xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-2 text-foreground leading-tight">
           {project.title}
         </h2>
-        <p className="text-base sm:text-lg text-muted-foreground mb-6">
+        <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-6">
           {project.subtitle}
         </p>
 
         {/* Hero Media Container */}
-        <div className="relative rounded-xl overflow-hidden aspect-[16/9] mb-8 border border-border">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
-          />
+        <div className="relative rounded-xl overflow-hidden aspect-[16/9] mb-6 sm:mb-8 border border-border bg-slate-900">
+          {!imageError ? (
+            <img
+              src={project.image}
+              alt={project.title}
+              onError={() => setImageError(true)}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full bg-slate-900 flex flex-col items-center justify-center p-6 text-center text-white">
+              <Layers className="w-12 h-12 text-brand-accent mb-2" />
+              <div className="font-bold text-lg">{project.title}</div>
+              <div className="text-xs text-slate-400 mt-1">{project.category} · {project.region}</div>
+            </div>
+          )}
         </div>
 
         {/* Highlights Strip */}
-        <div className="grid grid-cols-3 gap-3 p-4 rounded-xl bg-muted/30 border border-border mb-8">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl bg-muted/30 border border-border mb-6 sm:mb-8">
           {project.highlights.map((h, i) => (
-            <div key={i} className="text-center">
-              <div className="text-xs text-muted-foreground uppercase tracking-wider mb-1">{h.label}</div>
-              <div className="text-base sm:text-lg font-bold text-foreground font-mono tabular-nums">{h.value}</div>
+            <div key={i} className="text-center min-w-0">
+              <div className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-tight truncate mb-0.5 sm:mb-1">{h.label}</div>
+              <div className="text-sm sm:text-lg font-bold text-foreground font-mono tabular-nums truncate">{h.value}</div>
             </div>
           ))}
         </div>
