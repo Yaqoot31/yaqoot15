@@ -1,268 +1,126 @@
-import { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ChevronDown, Calendar, MapPin, Briefcase } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
-
-interface ExperienceItem {
-  title: string;
-  company: string;
-  period: string;
-  location: string;
-  type: string;
-  description: string;
-  details: string[];
-}
-
-const experiences: ExperienceItem[] = [
-  {
-    title: 'IT Project Manager / Product Manager',
-    company: 'DoceHero',
-    period: 'May 2021 - Present',
-    location: 'Remote, Contract',
-    type: 'Full-time',
-    description:
-      'Led end-to-end delivery of 10+ web and SaaS projects with 95% on-time delivery and zero critical post-launch failures.',
-    details: [
-      'Coordinated cross-functional teams of 8-15 members across QA, Dev, and Design',
-      'Identified and tracked 500+ defects, reducing production bugs by over 40%',
-      'Managed client relationships with international stakeholders from Germany, UK, USA, and UAE',
-      'Implemented Agile/Scrum methodologies improving team velocity by 25%',
-      'Conducted sprint planning, retrospectives, and daily stand-ups',
-    ],
-  },
-  {
-    title: 'SQA Engineer → Associate Project Lead',
-    company: 'TechX Solutions',
-    period: 'Jan 2019 - Apr 2021',
-    location: 'Islamabad, Pakistan',
-    type: 'Full-time',
-    description:
-      'Transitioned from QA role into project coordination and delivery leadership, managing sprint coordination and client communication.',
-    details: [
-      'Managed sprint coordination, task delegation, and progress tracking',
-      'Reported and tracked 500+ defects, driving measurable quality improvements',
-      'Supported roadmap discussions and release planning with senior stakeholders',
-      'Strengthened client trust through clear reporting and communication',
-      'Mentored junior QA engineers and established testing best practices',
-    ],
-  },
-  {
-    title: 'SQA Intern → Team Lead',
-    company: 'Virtual House | Mindbridge | Codersbrain',
-    period: '2016 - 2019',
-    location: 'Lahore, Pakistan',
-    type: 'Full-time',
-    description:
-      'Started as SQA intern and progressed to team lead role, gaining comprehensive experience in software testing and quality assurance.',
-    details: [
-      'Assisted in manual and automated testing of web applications',
-      'Created comprehensive test cases and test plans',
-      'Performed regression testing and bug tracking',
-      'Led a team of 5 QA engineers by end of tenure',
-      'Collaborated with development teams to ensure timely bug resolution',
-    ],
-  },
-];
-
-function ExperienceCard({
-  experience,
-  index,
-}: {
-  experience: ExperienceItem;
-  index: number;
-}) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const isLeft = index % 2 === 0;
-
-  useEffect(() => {
-    const element = cardRef.current;
-    if (!element) return;
-
-    const trigger = ScrollTrigger.create({
-      trigger: element,
-      start: 'top 85%',
-      once: true,
-      onEnter: () => {
-        gsap.fromTo(
-          element,
-          {
-            x: isLeft ? -100 : 100,
-            rotateY: isLeft ? 15 : -15,
-            opacity: 0,
-          },
-          {
-            x: 0,
-            rotateY: 0,
-            opacity: 1,
-            duration: 0.7,
-            delay: index * 0.2,
-            ease: 'expo.out',
-          }
-        );
-      },
-    });
-
-    return () => trigger.kill();
-  }, [index, isLeft]);
-
-  return (
-    <div
-      ref={cardRef}
-      className={`relative flex items-start gap-4 md:gap-8 ${
-        isLeft ? 'md:flex-row' : 'md:flex-row-reverse'
-      }`}
-      style={{ perspective: '1000px' }}
-    >
-      {/* Timeline Node */}
-      <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full bg-brand-accent border-4 border-background shadow-glow z-10" />
-
-      {/* Content Card */}
-      <div
-        className={`ml-12 md:ml-0 md:w-[45%] ${
-          isLeft ? 'md:mr-auto' : 'md:ml-auto'
-        }`}
-      >
-        <div className="p-6 rounded-xl bg-card shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 border-l-4 border-transparent hover:border-brand-accent">
-          {/* Header */}
-          <div className="flex items-start justify-between mb-4">
-            <div>
-              <h3 className="text-xl font-bold text-brand-primary dark:text-white mb-1">
-                {experience.title}
-              </h3>
-              <div className="flex items-center gap-2 text-brand-accent font-medium">
-                <Briefcase className="w-4 h-4" />
-                {experience.company}
-              </div>
-            </div>
-          </div>
-
-          {/* Meta Info */}
-          <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-4">
-            <span className="flex items-center gap-1">
-              <Calendar className="w-4 h-4" />
-              {experience.period}
-            </span>
-            <span className="flex items-center gap-1">
-              <MapPin className="w-4 h-4" />
-              {experience.location}
-            </span>
-          </div>
-
-          {/* Description */}
-          <p className="text-foreground/80 mb-4">{experience.description}</p>
-
-          {/* Expandable Details */}
-          <div
-            className={`overflow-hidden transition-all duration-400 ${
-              isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-            }`}
-          >
-            <ul className="space-y-2 pt-4 border-t border-border">
-              {experience.details.map((detail, i) => (
-                <li
-                  key={i}
-                  className="flex items-start gap-2 text-sm text-foreground/70"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 flex-shrink-0" />
-                  {detail}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Expand Button */}
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="flex items-center gap-2 text-sm font-medium text-brand-accent hover:text-brand-accent-hover transition-colors mt-2"
-          >
-            <span>{isExpanded ? 'Show Less' : 'Read More'}</span>
-            <ChevronDown
-              className={`w-4 h-4 transition-transform duration-300 ${
-                isExpanded ? 'rotate-180' : ''
-              }`}
-            />
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
+import { Calendar, MapPin, CheckCircle2 } from 'lucide-react';
+import { CAREER_HISTORY } from '../data/portfolioData';
 
 export default function Experience() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const timelineRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Heading animation
-      gsap.fromTo(
-        headingRef.current,
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: 'expo.out',
-          scrollTrigger: {
-            trigger: headingRef.current,
-            start: 'top 85%',
-            once: true,
-          },
-        }
-      );
-
-      // Timeline line animation
-      gsap.fromTo(
-        '.timeline-line',
-        { scaleY: 0 },
-        {
-          scaleY: 1,
-          duration: 1.2,
-          ease: 'expo.out',
-          scrollTrigger: {
-            trigger: timelineRef.current,
-            start: 'top 80%',
-            once: true,
-          },
-        }
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  const careerStages = [
+    {
+      stage: '◈ Early Career',
+      role: 'Software Quality Assurance Engineer',
+      orgs: 'Multiple Organizations · Core STLC foundations, automation scripts, test matrices',
+    },
+    {
+      stage: '◈ Mid Career',
+      role: 'Senior SQA Engineer to Senior QA Lead',
+      orgs: 'Leading QA squads, multi-device mobile labs (Foodpanda), regression gates',
+    },
+    {
+      stage: '◈ Growth',
+      role: 'IT Project & Product Manager to Senior QA Strategist',
+      orgs: 'Dual PM/SQA leadership across Germany, UK, US, Japan, and China',
+    },
+    {
+      stage: '◈ Current',
+      role: 'Author, Freelance Senior PM / QA Strategist / AI Architect',
+      orgs: 'Published author of 5 books, YUIE researcher, high-impact enterprise consulting',
+    },
+  ];
 
   return (
-    <section
-      id="experience"
-      ref={sectionRef}
-      className="section-padding bg-background"
-    >
-      <div className="container-max">
-        {/* Section Heading */}
-        <div ref={headingRef} className="text-center mb-16">
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-brand-primary dark:text-white mb-4">
-            Work Experience
+    <section id="trajectory" className="py-20 sm:py-28 bg-muted/20 border-b border-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+        {/* Section Header */}
+        <div className="max-w-3xl">
+          <div className="text-xs font-mono uppercase tracking-wider text-brand-accent mb-2">
+            D4 ▸ TIME :: CAREER TRAJECTORY & TELEMETRY
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+            2015 ▸ Present :: 10+ Years in Technology
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            My Professional Journey through 9+ years in the IT industry
+          <p className="text-base sm:text-lg text-muted-foreground mt-3 leading-relaxed">
+            A consistent progression from hands-on software quality engineering into enterprise project leadership, PMO consulting, and AI system design.
           </p>
         </div>
 
-        {/* Timeline */}
-        <div ref={timelineRef} className="relative">
-          {/* Timeline Line */}
-          <div
-            className="timeline-line absolute left-4 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-brand-accent via-brand-accent/50 to-brand-accent/20 origin-top"
-          />
+        {/* Macro Progression Stages */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {careerStages.map((cs, idx) => (
+            <div key={idx} className="p-5 rounded-2xl bg-card border border-border shadow-xs flex flex-col justify-between">
+              <div>
+                <div className="text-xs font-mono font-bold text-brand-accent mb-1.5">
+                  {cs.stage}
+                </div>
+                <div className="text-sm font-bold text-foreground leading-snug">
+                  {cs.role}
+                </div>
+              </div>
+              <div className="text-xs text-muted-foreground mt-3 leading-relaxed">
+                {cs.orgs}
+              </div>
+            </div>
+          ))}
+        </div>
 
-          {/* Experience Cards */}
-          <div className="space-y-8 md:space-y-12">
-            {experiences.map((exp, index) => (
-              <ExperienceCard key={index} experience={exp} index={index} />
+        {/* Detailed Work Experience Timeline */}
+        <div className="space-y-6">
+          <div className="flex items-center justify-between pb-2 border-b border-border">
+            <h3 className="text-xl font-bold text-foreground">
+              Corporate & Client Leadership Roles
+            </h3>
+            <span className="text-xs font-mono text-muted-foreground">
+              GERMANY · UK · US · JP · CN · PK
+            </span>
+          </div>
+
+          <div className="space-y-6">
+            {CAREER_HISTORY.map((exp, index) => (
+              <div
+                key={index}
+                className="p-6 sm:p-8 rounded-2xl bg-card border border-border shadow-sm hover:border-brand-accent/60 transition-colors"
+              >
+                <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+                  <div>
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                      <span className="font-bold text-xl text-foreground">{exp.role}</span>
+                      <span className="text-muted-foreground">at</span>
+                      <span className="font-semibold text-brand-accent text-lg">{exp.company}</span>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+                      <span className="flex items-center gap-1">
+                        <MapPin className="w-3.5 h-3.5" />
+                        {exp.location}
+                      </span>
+                      <span aria-hidden="true">·</span>
+                      <span className="flex items-center gap-1 font-mono">
+                        <Calendar className="w-3.5 h-3.5" />
+                        {exp.period}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Achievements List */}
+                <div className="space-y-2 mb-4">
+                  {exp.achievements.map((item, idx) => (
+                    <div key={idx} className="flex items-start gap-2.5 text-sm text-foreground/85">
+                      <CheckCircle2 className="w-4 h-4 text-brand-emerald shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Environment Tags */}
+                <div className="pt-4 border-t border-border flex flex-wrap items-center gap-2">
+                  <span className="text-xs font-mono text-muted-foreground">Environment:</span>
+                  {exp.environment.map((env, i) => (
+                    <span
+                      key={i}
+                      className="px-2 py-0.5 text-xs font-mono rounded bg-muted/60 text-muted-foreground border border-border/50"
+                    >
+                      {env}
+                    </span>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>

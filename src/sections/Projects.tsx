@@ -1,260 +1,151 @@
-import { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ExternalLink, Github, Code, Smartphone, Shield, Clipboard } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, MapPin } from 'lucide-react';
+import type { Project } from '../data/portfolioData';
+import { PROJECTS } from '../data/portfolioData';
 
-gsap.registerPlugin(ScrollTrigger);
-
-type ProjectCategory = 'All' | 'Web Development' | 'Mobile Apps' | 'SQA & Testing' | 'Project Management';
-
-interface Project {
-  title: string;
-  category: ProjectCategory;
-  description: string;
-  tech: string[];
-  image: string;
-  link?: string;
-  github?: string;
+interface ProjectsProps {
+  onSelectProject: (project: Project) => void;
 }
 
-const projects: Project[] = [
-  {
-    title: 'Go Gym',
-    category: 'Mobile Apps',
-    description:
-      'Comprehensive fitness and health app designed to help users achieve their wellness goals with tailored workout plans and progress tracking.',
-    tech: ['React Native', 'Node.js', 'MongoDB'],
-    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=600&fit=crop',
-    link: '#',
-  },
-  {
-    title: 'Fashion Store',
-    category: 'Web Development',
-    description:
-      'UI/UX focused e-commerce platform with seamless shopping experience, payment integration, and inventory management.',
-    tech: ['Next.js', 'MongoDB', 'Stripe'],
-    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop',
-    link: '#',
-  },
-  {
-    title: 'DocsHero',
-    category: 'Project Management',
-    description:
-      'German team\'s Document Management System with project management features akin to Jira, streamlining organizational efficiency.',
-    tech: ['MERN Stack', 'AWS', 'Docker'],
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
-    link: '#',
-  },
-  {
-    title: 'Foodpanda Testing',
-    category: 'SQA & Testing',
-    description:
-      'Comprehensive functional and UI/UX testing for the Foodpanda app, ensuring optimal performance and user satisfaction.',
-    tech: ['Selenium', 'Appium', 'Jest'],
-    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&h=600&fit=crop',
-    link: '#',
-  },
-  {
-    title: 'Android Support Testing',
-    category: 'SQA & Testing',
-    description:
-      'Android version support testing across various mobile devices to ensure optimal performance and compatibility.',
-    tech: ['Appium', 'Espresso', 'Firebase'],
-    image: 'https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?w=800&h=600&fit=crop',
-    link: '#',
-  },
-  {
-    title: 'Portfolio Website',
-    category: 'Web Development',
-    description:
-      'Modern portfolio website with smooth animations, responsive design, and dark mode support.',
-    tech: ['React', 'GSAP', 'Tailwind CSS'],
-    image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=600&fit=crop',
-    link: '#',
-    github: '#',
-  },
-];
+type CategoryFilter = 'All' | 'Enterprise SaaS' | 'FinTech & Banking' | 'E-Commerce' | 'Mobile & QA Automation';
 
-const categories: ProjectCategory[] = [
-  'All',
-  'Web Development',
-  'Mobile Apps',
-  'SQA & Testing',
-  'Project Management',
-];
+export default function Projects({ onSelectProject }: ProjectsProps) {
+  const [activeCategory, setActiveCategory] = useState<CategoryFilter>('All');
 
-const categoryIcons: Record<ProjectCategory, React.ReactNode> = {
-  'All': <Code className="w-4 h-4" />,
-  'Web Development': <Code className="w-4 h-4" />,
-  'Mobile Apps': <Smartphone className="w-4 h-4" />,
-  'SQA & Testing': <Shield className="w-4 h-4" />,
-  'Project Management': <Clipboard className="w-4 h-4" />,
-};
+  const categories: CategoryFilter[] = [
+    'All',
+    'Enterprise SaaS',
+    'FinTech & Banking',
+    'E-Commerce',
+    'Mobile & QA Automation',
+  ];
 
-export default function Projects() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-  const [activeCategory, setActiveCategory] = useState<ProjectCategory>('All');
-  const [filteredProjects, setFilteredProjects] = useState(projects);
-
-  useEffect(() => {
-    if (activeCategory === 'All') {
-      setFilteredProjects(projects);
-    } else {
-      setFilteredProjects(projects.filter((p) => p.category === activeCategory));
-    }
-  }, [activeCategory]);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Heading animation
-      gsap.fromTo(
-        headingRef.current,
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: 'expo.out',
-          scrollTrigger: {
-            trigger: headingRef.current,
-            start: 'top 85%',
-            once: true,
-          },
-        }
-      );
-
-      // Cards animation
-      const cards = gridRef.current?.querySelectorAll('.project-card');
-      if (cards) {
-        gsap.fromTo(
-          cards,
-          { scale: 0.8, opacity: 0 },
-          {
-            scale: 1,
-            opacity: 1,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: 'expo.out',
-            scrollTrigger: {
-              trigger: gridRef.current,
-              start: 'top 80%',
-              once: true,
-            },
-          }
-        );
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, [filteredProjects]);
+  const filteredProjects = activeCategory === 'All'
+    ? PROJECTS
+    : PROJECTS.filter(p => p.category === activeCategory);
 
   return (
-    <section
-      id="projects"
-      ref={sectionRef}
-      className="section-padding bg-muted/30"
-    >
-      <div className="container-max">
-        {/* Section Heading */}
-        <div ref={headingRef} className="text-center mb-12">
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-brand-primary dark:text-white mb-4">
-            My Projects
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Featured work showcasing my expertise in development, testing, and project management
-          </p>
+    <section id="projects" className="py-20 sm:py-28 border-b border-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="max-w-3xl">
+            <div className="text-xs font-mono uppercase tracking-wider text-brand-accent mb-2">
+              D3 ▸ CREATION :: CASE STUDIES & DELIVERIES
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+              25+ International End-to-End Programs
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground mt-3 leading-relaxed">
+              Real-world engineering leadership delivered across Germany, Japan, US, UK, and China with documented 25–35% quality and velocity improvements.
+            </p>
+          </div>
+
+          <div className="text-xs font-mono text-muted-foreground">
+            SELECT ANY CASE STUDY TO READ FULL ARCHITECTURAL ARTICLE
+          </div>
         </div>
 
-        {/* Filter Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
+        {/* Filter Segmented Controls (Interactive buttons) */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+              className={`px-4 py-2 text-xs font-medium rounded-lg whitespace-nowrap shrink-0 transition-colors ${
                 activeCategory === category
-                  ? 'bg-brand-accent text-white shadow-glow'
-                  : 'bg-card text-foreground hover:bg-brand-accent/10'
+                  ? 'bg-foreground text-background shadow-xs font-semibold'
+                  : 'bg-muted/40 text-muted-foreground hover:bg-muted hover:text-foreground'
               }`}
             >
-              {categoryIcons[category]}
               {category}
             </button>
           ))}
         </div>
 
         {/* Projects Grid */}
-        <div
-          ref={gridRef}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {filteredProjects.map((project, index) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredProjects.map((project) => (
             <div
-              key={index}
-              className="project-card group rounded-xl bg-card shadow-card overflow-hidden hover:shadow-card-hover transition-all duration-400 hover:-translate-y-3"
+              key={project.id}
+              className="group flex flex-col justify-between rounded-2xl bg-card border border-border shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden"
             >
-              {/* Image */}
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
-                {/* Overlay Links */}
-                <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  {project.link && (
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-full bg-white text-brand-primary hover:bg-brand-accent hover:text-white transition-colors"
-                      aria-label="View project"
-                    >
-                      <ExternalLink className="w-5 h-5" />
-                    </a>
-                  )}
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-full bg-white text-brand-primary hover:bg-brand-accent hover:text-white transition-colors"
-                      aria-label="View code"
-                    >
-                      <Github className="w-5 h-5" />
-                    </a>
-                  )}
+              <div>
+                {/* Media Container with fallback */}
+                <div className="relative aspect-[16/10] overflow-hidden bg-slate-900 border-b border-border">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+                  
+                  {/* Category & Region Overlay */}
+                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between text-[11px] text-white">
+                    <span className="px-2.5 py-1 rounded-md bg-black/70 backdrop-blur-md border border-white/10 font-mono font-medium">
+                      {project.category}
+                    </span>
+                    <span className="px-2.5 py-1 rounded-md bg-black/70 backdrop-blur-md border border-white/10 font-mono flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-brand-cyan" />
+                      {project.region}
+                    </span>
+                  </div>
+
+                  {/* Highlights Bar at bottom of image */}
+                  <div className="absolute bottom-3 left-3 right-3 grid grid-cols-3 gap-1.5 text-center">
+                    {project.highlights.map((h, idx) => (
+                      <div key={idx} className="p-1 rounded bg-black/75 backdrop-blur-md border border-white/10 text-white">
+                        <div className="text-[9px] text-slate-300 uppercase leading-none">{h.label}</div>
+                        <div className="text-[11px] font-mono font-bold text-brand-cyan leading-tight mt-0.5">{h.value}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Content Box */}
+                <div className="p-6 space-y-4">
+                  <div>
+                    <h3 className="text-xl font-bold text-foreground leading-snug group-hover:text-brand-accent transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-xs text-muted-foreground mt-1 line-clamp-1">
+                      {project.subtitle}
+                    </p>
+                  </div>
+
+                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                    {project.summary}
+                  </p>
+
+                  {/* Tech Badges */}
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {project.tech.slice(0, 4).map((tech, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2 py-0.5 text-[11px] font-mono rounded bg-muted/60 text-muted-foreground border border-border/60"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {project.tech.length > 4 && (
+                      <span className="px-1.5 py-0.5 text-[11px] font-mono text-muted-foreground">
+                        +{project.tech.length - 4}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
 
-              {/* Content */}
-              <div className="p-5">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-brand-accent">{categoryIcons[project.category]}</span>
-                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    {project.category}
-                  </span>
-                </div>
-                <h3 className="text-xl font-bold text-brand-primary dark:text-white mb-2">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-foreground/70 mb-4 line-clamp-2">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="px-2 py-1 text-xs rounded-md bg-brand-accent/10 text-brand-accent"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+              {/* Card Footer with Read More Button */}
+              <div className="p-6 pt-0 border-t border-border/40 mt-4">
+                <button
+                  onClick={() => onSelectProject(project)}
+                  className="w-full flex items-center justify-between px-4 py-2.5 text-xs font-semibold rounded-lg bg-muted/50 hover:bg-brand-accent hover:text-white transition-all text-foreground group/btn border border-border"
+                >
+                  <span>Read Case Study Article</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                </button>
               </div>
             </div>
           ))}

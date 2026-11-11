@@ -5,8 +5,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Great Vibes', 'cursive'],
-        body: ['Lato', 'sans-serif'],
+        display: ['Outfit', 'Plus Jakarta Sans', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        body: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -52,18 +54,18 @@ module.exports = {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Custom brand colors
         brand: {
-          primary: '#2c3e50',
-          secondary: '#34495e',
-          accent: '#3498db',
-          'accent-hover': '#2980b9',
-          bg: '#ecf0f1',
-          'bg-dark': '#bdc3c7',
-          'text-light': '#7f8c8d',
-          success: '#27ae60',
-          warning: '#f39c12',
-          error: '#e74c3c',
+          primary: '#0B0F19',
+          dark: '#06090E',
+          surface: '#111827',
+          border: '#1F2937',
+          cyan: '#00F0FF',
+          magenta: '#FF2BD6',
+          ruby: '#E11D48',
+          amber: '#FFB800',
+          emerald: '#10B981',
+          accent: '#0284C7',
+          'accent-hover': '#0369A1',
         },
       },
       borderRadius: {

@@ -1,221 +1,148 @@
-import { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Briefcase, Users, Bug, Award } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
-
-interface StatProps {
-  icon: React.ReactNode;
-  value: number;
-  suffix: string;
-  label: string;
-  delay: number;
-}
-
-function AnimatedStat({ icon, value, suffix, label, delay }: StatProps) {
-  const [count, setCount] = useState(0);
-  const statRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const element = statRef.current;
-    if (!element) return;
-
-    const trigger = ScrollTrigger.create({
-      trigger: element,
-      start: 'top 80%',
-      once: true,
-      onEnter: () => {
-        setTimeout(() => {
-          gsap.to(
-            { val: 0 },
-            {
-              val: value,
-              duration: 2,
-              ease: 'expo.out',
-              onUpdate: function () {
-                setCount(Math.floor(this.targets()[0].val));
-              },
-            }
-          );
-        }, delay);
-      },
-    });
-
-    return () => trigger.kill();
-  }, [value, delay]);
-
-  return (
-    <div
-      ref={statRef}
-      className="flex flex-col items-center p-6 rounded-xl bg-card shadow-card hover:shadow-card-hover hover:-translate-y-2 transition-all duration-300"
-    >
-      <div className="p-3 rounded-full bg-brand-accent/10 text-brand-accent mb-3">
-        {icon}
-      </div>
-      <div className="text-3xl sm:text-4xl font-bold text-brand-primary dark:text-white">
-        {count}
-        {suffix}
-      </div>
-      <div className="text-sm text-muted-foreground text-center">{label}</div>
-    </div>
-  );
-}
+import { Award, Quote } from 'lucide-react';
+import { QUOTES, RECOGNITION } from '../data/portfolioData';
 
 export default function About() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Heading animation
-      gsap.fromTo(
-        headingRef.current,
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: 'expo.out',
-          scrollTrigger: {
-            trigger: headingRef.current,
-            start: 'top 85%',
-            once: true,
-          },
-        }
-      );
-
-      // Image animation
-      gsap.fromTo(
-        imageRef.current,
-        { rotateY: -30, x: -50, opacity: 0 },
-        {
-          rotateY: 0,
-          x: 0,
-          opacity: 1,
-          duration: 1,
-          ease: 'expo.out',
-          scrollTrigger: {
-            trigger: imageRef.current,
-            start: 'top 80%',
-            once: true,
-          },
-        }
-      );
-
-      // Content paragraphs animation
-      const paragraphs = contentRef.current?.querySelectorAll('p');
-      if (paragraphs) {
-        gsap.fromTo(
-          paragraphs,
-          { x: 80, opacity: 0 },
-          {
-            x: 0,
-            opacity: 1,
-            duration: 0.6,
-            stagger: 0.15,
-            ease: 'expo.out',
-            scrollTrigger: {
-              trigger: contentRef.current,
-              start: 'top 80%',
-              once: true,
-            },
-          }
-        );
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  const stats = [
-    { icon: <Briefcase className="w-6 h-6" />, value: 9, suffix: '+', label: 'Years Experience', delay: 0 },
-    { icon: <Award className="w-6 h-6" />, value: 50, suffix: '+', label: 'Projects Completed', delay: 100 },
-    { icon: <Users className="w-6 h-6" />, value: 40, suffix: '+', label: 'Team Members Led', delay: 200 },
-    { icon: <Bug className="w-6 h-6" />, value: 500, suffix: '+', label: 'Defects Tracked', delay: 300 },
+  const evolutionSteps = [
+    { role: 'Software Engineer', focus: 'Algorithmic Foundations & Core Full-Stack Dev' },
+    { role: 'QA Engineer', focus: 'Defect Analysis & Test Design Heuristics' },
+    { role: 'QA Lead', focus: 'Team Automation Strategy & Multi-Device Matrices' },
+    { role: 'IT / Product PM', focus: 'Agile Delivery, Roadmap Planning & Stakeholders' },
+    { role: 'AI Architect', focus: 'Intelligent Systems, YUIE Research & LLM Ops' },
   ];
 
   return (
-    <section
-      id="about"
-      ref={sectionRef}
-      className="section-padding bg-background"
-    >
-      <div className="container-max">
-        {/* Section Heading */}
-        <h2
-          ref={headingRef}
-          className="font-display text-4xl sm:text-5xl md:text-6xl text-center text-brand-primary dark:text-white mb-16"
-        >
-          About Me
-        </h2>
+    <section id="about" className="py-20 sm:py-28 bg-muted/20 border-b border-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+        {/* Section Header */}
+        <div className="max-w-3xl">
+          <div className="text-xs font-mono uppercase tracking-wider text-brand-accent mb-2">
+            D1 ▸ IDENTITY :: PROFESSIONAL PROFILE
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+            Engineering Rigor Grounded in People-First Leadership
+          </h2>
+          <p className="text-base sm:text-lg text-muted-foreground mt-3 leading-relaxed">
+            A Software Engineering foundation fused with human-centered systems thinking creates a people-first, high-velocity approach to project leadership.
+          </p>
+        </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Profile Image */}
-          <div
-            ref={imageRef}
-            className="relative mx-auto lg:mx-0"
-            style={{ perspective: '1000px' }}
-          >
-            <div className="relative w-72 h-96 sm:w-80 sm:h-[28rem] lg:w-96 lg:h-[32rem] rounded-2xl overflow-hidden shadow-card-hover group">
-              <img
-                src="/images/profile.png"
-                alt="Yaqoot Nawab"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              {/* Decorative border */}
-              <div className="absolute inset-0 rounded-2xl border-4 border-brand-accent/30 pointer-events-none" />
+        {/* Narrative & Evolution Grid */}
+        <div className="grid lg:grid-cols-12 gap-8 items-start">
+          {/* Left: Narrative Bio (7 cols) */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="p-6 sm:p-8 rounded-2xl bg-card border border-border shadow-sm space-y-4">
+              <h3 className="text-xl font-bold text-foreground">
+                9+ Years Leading Mission-Critical Systems
+              </h3>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                Yaqoot Nawab is a Senior IT Project Manager, Tech Lead, Linux Specialist, PMO Consultant, AI Architect, and System Designer with 9+ years of experience delivering complex technology programs across Healthcare, E-Commerce, FinTech, and Enterprise Digital Transformation.
+              </p>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                His career spans 9 companies, 25+ end-to-end projects, and cross-functional teams across 5 countries: Germany, Japan, the United States, the United Kingdom, and China. Having started in code and quality assurance before moving to IT leadership, Yaqoot bridges the gap between what engineers build and what business stakeholders need.
+              </p>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                Author of five published books including <span className="text-foreground font-semibold">The Deep Triangle Framework: DTF</span>, <span className="text-foreground font-semibold">Lead. Plan. Deliver.</span>, <span className="text-foreground font-semibold">IT Project and Product Management</span>, and <span className="text-foreground font-semibold">SQA Engineering from Basic to Advanced with AI and Code</span>, plus an original AI research framework, <span className="text-foreground font-semibold">YUIE (Yaqoot Unified Intelligence Equation)</span>.
+              </p>
             </div>
-            {/* Background decoration */}
-            <div className="absolute -z-10 -bottom-6 -right-6 w-full h-full rounded-2xl bg-gradient-to-br from-brand-accent/20 to-brand-primary/20" />
+
+            {/* Evolution Path Diagram */}
+            <div className="p-6 rounded-2xl bg-card border border-border shadow-sm">
+              <div className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-4">
+                CAREER EVOLUTION TRAJECTORY
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
+                {evolutionSteps.map((step, idx) => (
+                  <div key={idx} className="relative p-3 rounded-xl bg-muted/30 border border-border/70 flex flex-col justify-between">
+                    <div>
+                      <div className="text-[10px] font-mono font-bold text-brand-accent mb-1">
+                        STEP 0{idx + 1}
+                      </div>
+                      <div className="text-xs font-bold text-foreground leading-tight">
+                        {step.role}
+                      </div>
+                    </div>
+                    <div className="text-[11px] text-muted-foreground mt-2 leading-snug">
+                      {step.focus}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* Content */}
-          <div ref={contentRef} className="space-y-6">
-            <p className="text-lg text-foreground/90 leading-relaxed">
-              As a <strong>Project Manager and SQA Engineer</strong> with over{' '}
-              <strong>9 years of experience</strong>, I am dedicated to solving complex
-              coding problems and ensuring the highest quality in software products. My
-              expertise in project coordination and team leadership enables me to deliver
-              seamless and reliable experiences that attract users to your product.
-            </p>
+          {/* Right: International Recognition Card (5 cols) */}
+          <div className="lg:col-span-5 space-y-6">
+            {/* Certificate of Excellence */}
+            <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-card via-card to-brand-accent/5 border-2 border-brand-accent/30 shadow-lg relative overflow-hidden">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-brand-amber uppercase tracking-wider mb-3">
+                <Award className="w-4 h-4 text-brand-amber" />
+                <span>INTERNATIONAL RECOGNITION</span>
+              </div>
 
-            <p className="text-lg text-foreground/90 leading-relaxed">
-              I have a proven track record of successfully managing international clients
-              across diverse markets, including the <strong>US, Japan, China, South Korea,</strong>{' '}
-              and the <strong>UK</strong>. My ability to quickly onboard new clients translates
-              to increased profitability for your company.
-            </p>
+              <div className="text-xs font-mono text-muted-foreground uppercase">
+                ◈ CERTIFICATE OF EXCELLENCE ◈
+              </div>
+              <h3 className="text-2xl font-bold text-foreground mt-1 mb-2">
+                {RECOGNITION.title}
+              </h3>
 
-            <p className="text-lg text-foreground/90 leading-relaxed">
-              In addition to my technical skills, I am passionate about generating innovative
-              ideas that drive profitability and enhance the overall quality of software
-              solutions. My experience in leading teams and coordinating projects ensures
-              that I can effectively guide initiatives from conception to completion.
-            </p>
+              <div className="space-y-3 py-4 my-2 border-y border-border text-sm">
+                <div className="flex items-start justify-between gap-2">
+                  <span className="text-muted-foreground">Award Title:</span>
+                  <span className="font-bold text-foreground text-right">{RECOGNITION.award}</span>
+                </div>
+                <div className="flex items-start justify-between gap-2">
+                  <span className="text-muted-foreground">Global Ranking:</span>
+                  <span className="font-bold text-brand-cyan text-right">{RECOGNITION.ranking}</span>
+                </div>
+                <div className="flex items-start justify-between gap-2">
+                  <span className="text-muted-foreground">Issued By:</span>
+                  <span className="text-foreground text-right font-medium">{RECOGNITION.issuedBy}</span>
+                </div>
+                <div className="flex items-start justify-between gap-2">
+                  <span className="text-muted-foreground">Certificate No.:</span>
+                  <span className="font-mono text-xs text-foreground text-right">{RECOGNITION.certNumber}</span>
+                </div>
+                <div className="flex items-start justify-between gap-2">
+                  <span className="text-muted-foreground">Date of Issue:</span>
+                  <span className="font-mono text-xs text-foreground text-right">{RECOGNITION.dateOfIssue}</span>
+                </div>
+              </div>
 
-            {/* CTA Button */}
-            <div className="pt-4">
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="inline-flex items-center gap-2 btn-primary"
-              >
-                Hire Me
-              </a>
+              <p className="text-xs text-muted-foreground italic leading-relaxed">
+                "{RECOGNITION.citation}"
+              </p>
+            </div>
+
+            {/* Quick Contact Station */}
+            <div className="p-5 rounded-2xl bg-card border border-border text-xs space-y-2">
+              <div className="font-mono uppercase tracking-wider text-muted-foreground">BASE STATION // AVAILABILITY</div>
+              <div className="text-sm font-semibold text-foreground">Lahore / Islamabad, Pakistan</div>
+              <div className="text-muted-foreground leading-relaxed">
+                Open to Remote, Hybrid, or On-Site International Leadership Engagements. Relocation open for high-impact roles.
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-16">
-          {stats.map((stat, index) => (
-            <AnimatedStat key={index} {...stat} />
+        {/* Dual Core Philosophical Codes */}
+        <div className="grid md:grid-cols-2 gap-6 pt-4">
+          {QUOTES.map((q, idx) => (
+            <div key={idx} className="p-6 sm:p-8 rounded-2xl bg-card border border-border relative flex flex-col justify-between">
+              <Quote className="w-8 h-8 text-brand-accent/20 absolute top-6 right-6" />
+              <div>
+                <div className="text-xs font-mono font-bold text-brand-accent uppercase tracking-wider mb-3">
+                  ◈ {q.title} ◈
+                </div>
+                <blockquote className="text-base sm:text-lg text-foreground font-medium italic leading-relaxed mb-6">
+                  "{q.quote}"
+                </blockquote>
+              </div>
+              <div className="flex items-center justify-between pt-4 border-t border-border/60 text-xs">
+                <span className="font-bold text-foreground">{q.author}</span>
+                <span className="text-muted-foreground font-mono">{q.role}</span>
+              </div>
+            </div>
           ))}
         </div>
       </div>
