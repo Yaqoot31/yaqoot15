@@ -25,6 +25,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       root.classList.remove('dark');
     }
     localStorage.setItem('theme-intl', isDark ? 'dark' : 'light');
+
+    // Sync mobile system status bar color with active theme
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeMeta) {
+      themeMeta.setAttribute('content', isDark ? '#0B1120' : '#FAFBFC');
+    }
   }, [isDark]);
 
   const toggleTheme = () => setIsDark((prev) => !prev);

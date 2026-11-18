@@ -17,7 +17,7 @@ export default function Hero({ onOpenResume }: HeroProps) {
   return (
     <section
       id="overview"
-      className="relative pt-28 pb-16 sm:pt-32 sm:pb-24 overflow-hidden"
+      className="relative pt-20 pb-12 sm:pt-32 sm:pb-24 overflow-hidden"
     >
       {/* Soft Radial Editorial Background Wash */}
       <div className="absolute top-0 right-0 w-[640px] h-[480px] bg-accent/[0.06] dark:bg-accent/[0.09] blur-[120px] rounded-full pointer-events-none" />

@@ -14,15 +14,19 @@ import Testimonials from './sections/Testimonials';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
 import { ScrollProgressBar, MarqueeRibbon } from './components/MotionPrimitives';
+import { MobileAppShell } from './components/MobileAppShell';
+import { OfflineIndicator } from './components/PWAInstallButton';
 import { ProjectArticleModal } from './components/ProjectArticleModal';
 import { ResearchArticleModal } from './components/ResearchArticleModal';
 import { ResumeModal } from './components/ResumeModal';
 import { BookModal } from './components/BookModal';
 import { YuieModal } from './components/YuieModal';
+import { useIsMobile } from './hooks/use-mobile';
 import type { Project, ArticleItem, Book } from './data/portfolioData';
 import './App.css';
 
 function App() {
+  const isMobile = useIsMobile();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedArticle, setSelectedArticle] = useState<ArticleItem | null>(null);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
@@ -32,41 +36,55 @@ function App() {
   return (
     <MotionConfig reducedMotion="user">
       <ThemeProvider>
-        <div className="min-h-screen bg-background text-foreground antialiased selection:bg-accent/20 selection:text-accent">
-          <ScrollProgressBar />
-
-          <Navigation onOpenResume={() => setIsResumeOpen(true)} />
-
-          <main>
-            <Hero onOpenResume={() => setIsResumeOpen(true)} />
-
-            <MarqueeRibbon
-              items={[
-                'Senior IT Project Manager',
-                'Tech Lead & System Architect',
-                'Germany · Japan · United States · United Kingdom · China',
-                '9+ Years Experience',
-                '25+ End-to-End Deliveries',
-                'Author of 5 Published Books',
-                'YUIE Sentient AI Research',
-              ]}
-            />
-
-            <About />
-            <Projects onSelectProject={(p) => setSelectedProject(p)} />
-            <Bookshelf onSelectBook={(b) => setSelectedBook(b)} />
-            <Research
-              onOpenYuie={() => setIsYuieOpen(true)}
+        <div className="min-h-screen bg-background text-foreground antialiased selection:bg-accent/20 selection:text-accent overflow-x-hidden">
+          {isMobile ? (
+            <MobileAppShell
+              onSelectProject={(p) => setSelectedProject(p)}
               onSelectArticle={(a) => setSelectedArticle(a)}
+              onSelectBook={(b) => setSelectedBook(b)}
+              onOpenResume={() => setIsResumeOpen(true)}
+              onOpenYuie={() => setIsYuieOpen(true)}
             />
-            <Skills />
-            <Experience />
-            <Services />
-            <Testimonials />
-            <Contact onOpenResume={() => setIsResumeOpen(true)} />
-          </main>
+          ) : (
+            <>
+              <ScrollProgressBar />
 
-          <Footer onOpenResume={() => setIsResumeOpen(true)} />
+              <Navigation onOpenResume={() => setIsResumeOpen(true)} />
+
+              <main>
+                <Hero onOpenResume={() => setIsResumeOpen(true)} />
+
+                <MarqueeRibbon
+                  items={[
+                    'Senior IT Project Manager',
+                    'Tech Lead & System Architect',
+                    'Germany · Japan · United States · United Kingdom · China',
+                    '9+ Years Experience',
+                    '25+ End-to-End Deliveries',
+                    'Author of 5 Published Books',
+                    'YUIE Sentient AI Research',
+                  ]}
+                />
+
+                <About />
+                <Projects onSelectProject={(p) => setSelectedProject(p)} />
+                <Bookshelf onSelectBook={(b) => setSelectedBook(b)} />
+                <Research
+                  onOpenYuie={() => setIsYuieOpen(true)}
+                  onSelectArticle={(a) => setSelectedArticle(a)}
+                />
+                <Skills />
+                <Experience />
+                <Services />
+                <Testimonials />
+                <Contact onOpenResume={() => setIsResumeOpen(true)} />
+              </main>
+
+              <Footer onOpenResume={() => setIsResumeOpen(true)} />
+            </>
+          )}
+
+          <OfflineIndicator />
 
           <ProjectArticleModal
             project={selectedProject}

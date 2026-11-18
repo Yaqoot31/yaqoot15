@@ -135,7 +135,7 @@ export default function Navigation({ onOpenResume }: NavigationProps) {
                 <span>View Resume</span>
               </button>
 
-              {/* Mobile Drawer Trigger */}
+              {/* Tablet Drawer Trigger (md to lg) */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="lg:hidden p-2 rounded-lg border border-border bg-card hover:bg-muted text-foreground transition-colors"
@@ -148,7 +148,7 @@ export default function Navigation({ onOpenResume }: NavigationProps) {
         </div>
       </header>
 
-      {/* Animated Mobile Navigation Drawer */}
+      {/* Tablet Navigation Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <div className="fixed inset-0 z-50 lg:hidden">
