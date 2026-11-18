@@ -19,43 +19,38 @@ export default function Footer({ onOpenResume }: FooterProps) {
   ];
 
   return (
-    <footer className="bg-card text-card-foreground border-t border-border relative overflow-hidden">
-      {/* Subtle background glow */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-accent/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-cyan/5 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 space-y-16 relative z-10">
-        {/* Top Header Banner: Identity + Direct Executive Action Bar */}
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 pb-12 border-b border-border/70">
+    <footer className="bg-card text-card-foreground border-t border-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 space-y-14">
+        {/* Top Executive Identity Strip */}
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 pb-10 border-b border-border/70">
           <div className="flex items-center gap-4">
             <img
               src={IDENTITY_TELEMETRY.logoImage}
               alt="Yaqoot Nawab Brand Logo"
-              className="w-14 h-14 rounded-2xl object-contain bg-white dark:bg-card p-1.5 border border-border shadow-md"
+              referrerPolicy="no-referrer"
+              className="w-12 h-12 rounded-xl object-contain bg-white border border-border p-1 shadow-xs"
             />
             <div>
-              <div className="flex items-center gap-3">
-                <span className="font-extrabold text-xl sm:text-2xl text-foreground tracking-tight">
-                  YAQOOT NAWAB
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="font-display font-bold text-xl sm:text-2xl text-foreground tracking-tight">
+                  Yaqoot Nawab
                 </span>
-                <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-brand-emerald/15 text-brand-emerald font-bold border border-brand-emerald/30">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-emerald animate-pulse" />
-                  STATUS: ONLINE
+                <span className="text-xs font-semibold text-brand-emerald">
+                  Available for Advisory
                 </span>
               </div>
-              <div className="text-xs sm:text-sm text-muted-foreground font-mono mt-0.5">
+              <div className="text-xs sm:text-sm text-muted-foreground mt-0.5">
                 Senior IT Project Manager · Tech Lead · AI Architect · Author
               </div>
             </div>
           </div>
 
-          {/* Quick Direct Executive Channels */}
           <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
             <a
               href="https://wa.me/923126406045"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2.5 rounded-xl bg-brand-emerald hover:bg-brand-emerald/90 text-white text-xs font-bold transition-all shadow-sm flex items-center gap-2 hover:-translate-y-0.5"
+              className="px-4 py-2.5 rounded-xl bg-brand-emerald hover:opacity-95 text-white text-xs font-semibold transition-all shadow-xs flex items-center gap-2 hover:-translate-y-0.5"
             >
               <MessageSquare className="w-4 h-4" />
               <span>WhatsApp: +92 312 6406045</span>
@@ -64,268 +59,218 @@ export default function Footer({ onOpenResume }: FooterProps) {
 
             <button
               onClick={onOpenResume}
-              className="px-4 py-2.5 rounded-xl bg-muted border border-border hover:bg-muted/80 text-foreground text-xs font-semibold transition-all flex items-center gap-2"
+              className="px-4 py-2.5 rounded-xl bg-muted/60 border border-border hover:bg-muted text-foreground text-xs font-semibold transition-colors flex items-center gap-2"
             >
-              <FileText className="w-4 h-4 text-brand-accent" />
+              <FileText className="w-4 h-4 text-accent" />
               <span>Resume PDF</span>
             </button>
 
             <a
               href={`mailto:${IDENTITY_TELEMETRY.email}`}
-              className="px-4 py-2.5 rounded-xl bg-muted border border-border hover:bg-muted/80 text-foreground text-xs font-semibold transition-all flex items-center gap-2"
+              className="px-4 py-2.5 rounded-xl bg-muted/60 border border-border hover:bg-muted text-foreground text-xs font-semibold transition-colors flex items-center gap-2"
             >
-              <Mail className="w-4 h-4 text-brand-cyan" />
+              <Mail className="w-4 h-4 text-accent" />
               <span>{IDENTITY_TELEMETRY.email}</span>
             </a>
           </div>
         </div>
 
-        {/* Global Delivery Hubs Bar */}
-        <div className="p-6 rounded-2xl bg-muted/30 border border-border space-y-3">
+        {/* Global Client Network */}
+        <div className="p-6 rounded-2xl bg-muted/35 border border-border space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-muted-foreground">
-              <Globe className="w-4 h-4 text-brand-accent" />
-              <span>Active International Client Delivery Network</span>
+            <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
+              <Globe className="w-4 h-4 text-accent" />
+              <span>International Client Delivery Network</span>
             </div>
-            <div className="text-[11px] font-mono text-muted-foreground">
-              9+ YEARS · 9 COMPANIES · 25+ DELIVERIES · ZERO ESCALATIONS
+            <div className="text-xs text-muted-foreground">
+              9+ Years · 9 Companies · 25+ Deliveries
             </div>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 pt-1">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
             {GLOBAL_HUBS.map((hub) => (
               <div
                 key={hub.code}
-                className="p-3 rounded-xl bg-card border border-border/80 flex items-center gap-2.5 shadow-xs"
+                className="p-3 rounded-xl bg-card border border-border/80 flex items-center gap-2.5"
               >
                 <span className="text-xl shrink-0" role="img" aria-label={hub.country}>
                   {hub.flag}
                 </span>
                 <div className="min-w-0">
                   <div className="text-xs font-bold text-foreground leading-tight">{hub.country}</div>
-                  <div className="text-[10px] text-muted-foreground truncate">{hub.note}</div>
+                  <div className="text-[11px] text-muted-foreground truncate">{hub.note}</div>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Deep 4-Column Structured Content */}
+        {/* 4-Column Navigation & Credentials */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
-          {/* Col 1: Identity & Telemetry */}
           <div className="space-y-4">
-            <div className="text-xs font-mono uppercase tracking-wider text-brand-accent font-semibold flex items-center gap-1.5">
-              <span>◈ D1 :: EXECUTIVE IDENTITY</span>
+            <div className="text-xs font-semibold text-accent">
+              Executive Profile
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              Software Engineering foundation fused with human-centered systems thinking, engineering high-velocity IT delivery programs across Europe, the Americas, and Asia-Pacific.
+              Software Engineering foundation fused with human-centered leadership across Europe, North America, and Asia-Pacific.
             </p>
             <div className="space-y-2 text-xs text-muted-foreground">
               <div className="flex items-center justify-between py-1 border-b border-border/50">
-                <span>Experience:</span>
+                <span>Experience</span>
                 <span className="font-semibold text-foreground">9+ Years (10+ Tech)</span>
               </div>
               <div className="flex items-center justify-between py-1 border-b border-border/50">
-                <span>Base Station:</span>
+                <span>Base Station</span>
                 <span className="font-semibold text-foreground">Lahore / Islamabad</span>
               </div>
               <div className="flex items-center justify-between py-1 border-b border-border/50">
-                <span>Relocation:</span>
+                <span>Relocation</span>
                 <span className="font-semibold text-foreground">Open to International Travel</span>
               </div>
               <div className="flex items-center justify-between py-1">
-                <span>Languages:</span>
+                <span>Languages</span>
                 <span className="font-semibold text-foreground">English (Fluent)</span>
               </div>
             </div>
           </div>
 
-          {/* Col 2: Core Engineering & PM Disciplines */}
           <div className="space-y-4">
-            <div className="text-xs font-mono uppercase tracking-wider text-brand-accent font-semibold flex items-center gap-1.5">
-              <span>◈ D2 :: CORE DISCIPLINES</span>
+            <div className="text-xs font-semibold text-accent">
+              Core Disciplines
             </div>
             <ul className="space-y-2 text-xs text-muted-foreground">
-              <li className="flex items-center gap-2 hover:text-foreground transition-colors">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-accent" />
-                <span>Enterprise IT Project & Program Delivery (Agile/Scrum/SAFe)</span>
-              </li>
-              <li className="flex items-center gap-2 hover:text-foreground transition-colors">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-accent" />
-                <span>Linux Systems Administration & Shell Automation</span>
-              </li>
-              <li className="flex items-center gap-2 hover:text-foreground transition-colors">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-accent" />
-                <span>AI Architecture & LLM Engineering (Claude, GPT APIs)</span>
-              </li>
-              <li className="flex items-center gap-2 hover:text-foreground transition-colors">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-accent" />
-                <span>Multi-Tier SQA Automation (Selenium, Appium, Cypress)</span>
-              </li>
-              <li className="flex items-center gap-2 hover:text-foreground transition-colors">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-accent" />
-                <span>PMO Governance, Roadmaps & Crisis Recovery</span>
-              </li>
-              <li className="flex items-center gap-2 hover:text-foreground transition-colors">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-accent" />
-                <span>Microservices Architecture & System Design</span>
-              </li>
+              <li>Enterprise IT Project & Program Delivery</li>
+              <li>Linux Systems & Shell Automation</li>
+              <li>AI Architecture & LLM Integration</li>
+              <li>Multi-Tier SQA Automation Strategy</li>
+              <li>PMO Governance & Crisis Recovery</li>
+              <li>Microservices & System Design</li>
             </ul>
           </div>
 
-          {/* Col 3: Published Works & Research */}
           <div className="space-y-4">
-            <div className="text-xs font-mono uppercase tracking-wider text-brand-accent font-semibold flex items-center gap-1.5">
+            <div className="text-xs font-semibold text-accent flex items-center gap-1.5">
               <BookOpen className="w-3.5 h-3.5" />
-              <span>◈ D3 :: PUBLISHED BOOKS</span>
+              <span>Published Books</span>
             </div>
-            <div className="space-y-2.5 text-xs">
+            <div className="space-y-2 text-xs">
               <a
                 href="#bookshelf"
-                className="block p-2 rounded-lg bg-muted/40 hover:bg-muted border border-border/60 transition-colors group"
+                className="block p-2.5 rounded-xl bg-muted/40 hover:bg-muted border border-border/60 transition-colors"
               >
-                <div className="font-semibold text-foreground group-hover:text-brand-accent transition-colors flex items-center justify-between">
-                  <span>The Deep Triangle Framework: DTF</span>
+                <div className="font-semibold text-foreground flex items-center justify-between">
+                  <span>The Deep Triangle Framework</span>
                   <ExternalLink className="w-3 h-3 text-muted-foreground" />
                 </div>
                 <div className="text-[11px] text-muted-foreground">Ocean Trench & Bermuda Triangle strategies</div>
               </a>
               <a
                 href="#bookshelf"
-                className="block p-2 rounded-lg bg-muted/40 hover:bg-muted border border-border/60 transition-colors group"
+                className="block p-2.5 rounded-xl bg-muted/40 hover:bg-muted border border-border/60 transition-colors"
               >
-                <div className="font-semibold text-foreground group-hover:text-brand-accent transition-colors flex items-center justify-between">
-                  <span>IT Project and Product Management</span>
+                <div className="font-semibold text-foreground flex items-center justify-between">
+                  <span>IT Project & Product Management</span>
                   <ExternalLink className="w-3 h-3 text-muted-foreground" />
                 </div>
-                <div className="text-[11px] text-muted-foreground">Bridging delivery and product vision</div>
+                <div className="text-[11px] text-muted-foreground">Bridging delivery and vision</div>
               </a>
               <a
                 href="#bookshelf"
-                className="block p-2 rounded-lg bg-muted/40 hover:bg-muted border border-border/60 transition-colors group"
+                className="block p-2.5 rounded-xl bg-muted/40 hover:bg-muted border border-border/60 transition-colors"
               >
-                <div className="font-semibold text-foreground group-hover:text-brand-accent transition-colors flex items-center justify-between">
-                  <span>SQA Engineering with AI and Code</span>
+                <div className="font-semibold text-foreground flex items-center justify-between">
+                  <span>SQA Engineering with AI & Code</span>
                   <ExternalLink className="w-3 h-3 text-muted-foreground" />
                 </div>
-                <div className="text-[11px] text-muted-foreground">32 Sections on modern test architecture</div>
+                <div className="text-[11px] text-muted-foreground">32 Sections on test automation</div>
               </a>
               <a
                 href="#research"
-                className="block p-2 rounded-lg bg-brand-cyan/5 hover:bg-brand-cyan/10 border border-brand-cyan/20 transition-colors group"
+                className="block p-2.5 rounded-xl bg-accent/10 hover:bg-accent/15 border border-accent/25 transition-colors"
               >
-                <div className="font-semibold text-brand-cyan flex items-center justify-between">
+                <div className="font-semibold text-accent flex items-center justify-between">
                   <span>YUIE Sentient AI Research</span>
-                  <ExternalLink className="w-3 h-3 text-brand-cyan" />
+                  <ExternalLink className="w-3 h-3 text-accent" />
                 </div>
-                <div className="text-[11px] text-muted-foreground">7 Mathematical Axioms for Sentient Machine Empathy</div>
+                <div className="text-[11px] text-muted-foreground">7 Equations for Sentient AI</div>
               </a>
             </div>
           </div>
 
-          {/* Col 4: Recognition & Ecosystem */}
           <div className="space-y-4">
-            <div className="text-xs font-mono uppercase tracking-wider text-brand-accent font-semibold flex items-center gap-1.5">
+            <div className="text-xs font-semibold text-accent flex items-center gap-1.5">
               <Award className="w-3.5 h-3.5" />
-              <span>GLOBAL RECOGNITION & REACH</span>
+              <span>Recognition & Links</span>
             </div>
 
-            {/* Recognition Badge */}
-            <div className="p-3.5 rounded-xl bg-brand-accent/5 border border-brand-accent/30 space-y-1.5">
+            <div className="p-3.5 rounded-xl bg-accent/5 border border-accent/20 space-y-1.5">
               <div className="flex items-center gap-2 text-xs font-bold text-foreground">
-                <ShieldCheck className="w-4 h-4 text-brand-accent" />
+                <ShieldCheck className="w-4 h-4 text-accent shrink-0" />
                 <span>{RECOGNITION.ranking}</span>
               </div>
               <p className="text-[11px] text-muted-foreground leading-snug">
-                {RECOGNITION.title} · Issued by Phantom Air Tech Pvt (PAT Pvt, 2026).
+                {RECOGNITION.title} · Phantom Air Tech Pvt (PAT Pvt, 2026).
               </p>
             </div>
 
-            {/* Ecosystem Links */}
-            <div className="space-y-1.5 pt-1">
-              <div className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
-                Professional Coordinates:
-              </div>
-              <div className="flex flex-wrap gap-2 text-xs">
-                <a
-                  href="https://wa.me/923126406045"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-2.5 py-1 rounded-md bg-brand-emerald/10 hover:bg-brand-emerald/20 text-brand-emerald border border-brand-emerald/30 font-semibold transition-colors flex items-center gap-1"
-                >
-                  <MessageSquare className="w-3 h-3" />
-                  WhatsApp
-                </a>
-                <a
-                  href={IDENTITY_TELEMETRY.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-2.5 py-1 rounded-md bg-muted/60 hover:bg-muted text-foreground border border-border transition-colors flex items-center gap-1"
-                >
-                  LinkedIn
-                </a>
-                <a
-                  href={IDENTITY_TELEMETRY.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-2.5 py-1 rounded-md bg-muted/60 hover:bg-muted text-foreground border border-border transition-colors flex items-center gap-1"
-                >
-                  GitHub
-                </a>
-                <a
-                  href={IDENTITY_TELEMETRY.medium}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-2.5 py-1 rounded-md bg-muted/60 hover:bg-muted text-foreground border border-border transition-colors flex items-center gap-1"
-                >
-                  Medium
-                </a>
-                <a
-                  href={IDENTITY_TELEMETRY.freelancer}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-2.5 py-1 rounded-md bg-muted/60 hover:bg-muted text-foreground border border-border transition-colors flex items-center gap-1"
-                >
-                  Freelancer
-                </a>
-              </div>
+            <div className="flex flex-wrap gap-2 text-xs pt-1">
+              <a
+                href="https://wa.me/923126406045"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-2.5 py-1 rounded-lg bg-brand-emerald/10 hover:bg-brand-emerald/20 text-brand-emerald border border-brand-emerald/25 font-semibold transition-colors"
+              >
+                WhatsApp
+              </a>
+              <a
+                href={IDENTITY_TELEMETRY.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-2.5 py-1 rounded-lg bg-muted/50 hover:bg-muted text-foreground border border-border transition-colors"
+              >
+                LinkedIn
+              </a>
+              <a
+                href={IDENTITY_TELEMETRY.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-2.5 py-1 rounded-lg bg-muted/50 hover:bg-muted text-foreground border border-border transition-colors"
+              >
+                GitHub
+              </a>
+              <a
+                href={IDENTITY_TELEMETRY.medium}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-2.5 py-1 rounded-lg bg-muted/50 hover:bg-muted text-foreground border border-border transition-colors"
+              >
+                Medium
+              </a>
+              <a
+                href={IDENTITY_TELEMETRY.freelancer}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-2.5 py-1 rounded-lg bg-muted/50 hover:bg-muted text-foreground border border-border transition-colors"
+              >
+                Freelancer
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Philosophy Quote Banner */}
-        <div className="p-6 sm:p-8 rounded-2xl bg-card border border-border/80 text-center space-y-2">
-          <p className="text-sm sm:text-base italic text-foreground font-medium max-w-3xl mx-auto">
-            "The best project managers are those who understand that their success is entirely dependent on the success of their team members. When you invest in people, the projects take care of themselves."
-          </p>
-          <div className="text-xs font-mono text-brand-accent tracking-wider font-semibold">
-            — YAQOOT NAWAB · THE PEOPLE FIRST CODE
-          </div>
-        </div>
-
-        {/* Bottom Legal & Telemetry Strip */}
-        <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-muted-foreground font-mono">
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
-            <span>© {new Date().getFullYear()} Yaqoot Nawab.</span>
-            <span aria-hidden="true">·</span>
-            <span>All Rights Reserved.</span>
-            <span aria-hidden="true">·</span>
-            <span className="text-foreground font-semibold">International Standard IT Delivery</span>
+        {/* Quiet Copyright & Back to Top */}
+        <div className="pt-8 border-t border-border/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+          <div>
+            © {new Date().getFullYear()} Yaqoot Nawab. All Rights Reserved.
           </div>
 
-          <div className="flex items-center gap-4">
-            <span className="hidden sm:inline text-[11px] text-muted-foreground/70">
-              ◈ D1 IDENTITY ◈ D2 CAPABILITY ◈ D3 CREATION ◈ D4 TIME ◈ D5 VISION ◈
-            </span>
-            <button
-              onClick={scrollToTop}
-              className="p-2.5 rounded-xl border border-border bg-muted/40 hover:bg-muted text-muted-foreground hover:text-foreground transition-all flex items-center gap-1.5 shadow-xs"
-              title="Return to top"
-              aria-label="Back to top"
-            >
-              <ArrowUp className="w-4 h-4" />
-              <span className="text-[11px] font-semibold">Top</span>
-            </button>
-          </div>
+          <button
+            onClick={scrollToTop}
+            className="px-3.5 py-2 rounded-xl border border-border bg-muted/40 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1.5 font-medium"
+            aria-label="Back to top"
+          >
+            <ArrowUp className="w-3.5 h-3.5" />
+            <span>Back to Top</span>
+          </button>
         </div>
       </div>
     </footer>

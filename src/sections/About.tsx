@@ -1,5 +1,6 @@
-import { Award, Quote } from 'lucide-react';
+import { Award, Quote, ArrowRight } from 'lucide-react';
 import { QUOTES, RECOGNITION } from '../data/portfolioData';
+import { Reveal, StaggerGrid, StaggerItem } from '../components/MotionPrimitives';
 
 export default function About() {
   const evolutionSteps = [
@@ -11,140 +12,146 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="py-20 sm:py-28 bg-muted/20 border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+    <section id="about" className="py-20 sm:py-28 border-b border-border/70">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
         {/* Section Header */}
-        <div className="max-w-3xl">
-          <div className="text-xs font-mono uppercase tracking-wider text-brand-accent mb-2">
-            D1 ▸ IDENTITY :: PROFESSIONAL PROFILE
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+        <Reveal className="max-w-3xl">
+          <p className="text-sm font-semibold text-accent mb-2">
+            Identity & Recognition
+          </p>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground" style={{ textWrap: 'balance' }}>
             Engineering Rigor Grounded in People-First Leadership
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground mt-3 leading-relaxed">
-            A Software Engineering foundation fused with human-centered systems thinking creates a people-first, high-velocity approach to project leadership.
+            A Computer Software Engineering foundation combined with human-centered systems leadership builds calm velocity across distributed teams.
           </p>
-        </div>
+        </Reveal>
 
-        {/* Narrative & Evolution Grid */}
+        {/* Narrative + Recognition Split */}
         <div className="grid lg:grid-cols-12 gap-8 items-start">
-          {/* Left: Narrative Bio (7 cols) */}
+          {/* Left: Bio & 5-Stage Evolution (7 cols) */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="p-6 sm:p-8 rounded-2xl bg-card border border-border shadow-sm space-y-4">
-              <h3 className="text-xl font-bold text-foreground">
-                9+ Years Leading Mission-Critical Systems
+            <Reveal className="intl-card p-6 sm:p-8 space-y-4">
+              <h3 className="font-display text-xl font-bold text-foreground">
+                9+ Years Leading Mission-Critical Technology Programs
               </h3>
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                 Yaqoot Nawab is a Senior IT Project Manager, Tech Lead, Linux Specialist, PMO Consultant, AI Architect, and System Designer with 9+ years of experience delivering complex technology programs across Healthcare, E-Commerce, FinTech, and Enterprise Digital Transformation.
               </p>
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                His career spans 9 companies, 25+ end-to-end projects, and cross-functional teams across 5 countries: Germany, Japan, the United States, the United Kingdom, and China. Having started in code and quality assurance before moving to IT leadership, Yaqoot bridges the gap between what engineers build and what business stakeholders need.
+                His career spans 9 companies, 25+ end-to-end projects, and cross-functional engineering squads across 5 countries: Germany, Japan, the United States, the United Kingdom, and China. Having progressed from hands-on coding and software quality into enterprise leadership, he bridges what engineers build with what business executives need.
               </p>
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                Author of five published books including <span className="text-foreground font-semibold">The Deep Triangle Framework: DTF</span>, <span className="text-foreground font-semibold">Lead. Plan. Deliver.</span>, <span className="text-foreground font-semibold">IT Project and Product Management</span>, and <span className="text-foreground font-semibold">SQA Engineering from Basic to Advanced with AI and Code</span>, plus an original AI research framework, <span className="text-foreground font-semibold">YUIE (Yaqoot Unified Intelligence Equation)</span>.
+                Author of five published books including <span className="text-foreground font-semibold">The Deep Triangle Framework: DTF</span>, <span className="text-foreground font-semibold">Lead. Plan. Deliver.</span>, <span className="text-foreground font-semibold">IT Project and Product Management</span>, and <span className="text-foreground font-semibold">SQA Engineering from Basic to Advanced with AI and Code</span>, plus an original AI research framework, <span className="text-accent font-semibold">YUIE (Yaqoot Unified Intelligence Equation)</span>.
               </p>
-            </div>
+            </Reveal>
 
-            {/* Evolution Path Diagram */}
-            <div className="p-6 rounded-2xl bg-card border border-border shadow-sm">
-              <div className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-4">
-                CAREER EVOLUTION TRAJECTORY
+            {/* Evolution Path */}
+            <Reveal delay={0.08} className="intl-card p-6 space-y-4">
+              <div className="text-xs font-semibold text-muted-foreground">
+                Career Progression Path
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
+              <StaggerGrid className="grid grid-cols-1 sm:grid-cols-5 gap-3" stagger={0.05}>
                 {evolutionSteps.map((step, idx) => (
-                  <div key={idx} className="relative p-3 rounded-xl bg-muted/30 border border-border/70 flex flex-col justify-between">
-                    <div>
-                      <div className="text-[10px] font-mono font-bold text-brand-accent mb-1">
-                        STEP 0{idx + 1}
+                  <StaggerItem key={idx}>
+                    <div className="h-full p-3.5 rounded-xl bg-muted/40 border border-border/70 flex flex-col justify-between hover:border-accent/40 transition-colors">
+                      <div>
+                        <div className="flex items-center justify-between text-xs font-mono font-semibold text-accent mb-1">
+                          <span>0{idx + 1}.</span>
+                          {idx < evolutionSteps.length - 1 && (
+                            <ArrowRight className="w-3 h-3 hidden sm:inline text-muted-foreground" />
+                          )}
+                        </div>
+                        <div className="font-display text-xs font-bold text-foreground leading-snug">
+                          {step.role}
+                        </div>
                       </div>
-                      <div className="text-xs font-bold text-foreground leading-tight">
-                        {step.role}
+                      <div className="text-[11px] text-muted-foreground mt-2 leading-snug">
+                        {step.focus}
                       </div>
                     </div>
-                    <div className="text-[11px] text-muted-foreground mt-2 leading-snug">
-                      {step.focus}
-                    </div>
-                  </div>
+                  </StaggerItem>
                 ))}
-              </div>
-            </div>
+              </StaggerGrid>
+            </Reveal>
           </div>
 
-          {/* Right: International Recognition Card (5 cols) */}
-          <div className="lg:col-span-5 space-y-6">
-            {/* Certificate of Excellence */}
-            <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-card via-card to-brand-accent/5 border-2 border-brand-accent/30 shadow-lg relative overflow-hidden">
-              <div className="flex items-center gap-2 text-xs font-mono font-bold text-brand-amber uppercase tracking-wider mb-3">
-                <Award className="w-4 h-4 text-brand-amber" />
-                <span>INTERNATIONAL RECOGNITION</span>
+          {/* Right: International Recognition Certificate (5 cols) */}
+          <Reveal delay={0.12} className="lg:col-span-5 space-y-6">
+            <div className="intl-card p-6 sm:p-8 border-accent/25 relative overflow-hidden">
+              <div className="flex items-center gap-2 text-xs font-semibold text-brand-amber mb-2">
+                <Award className="w-4 h-4 shrink-0" />
+                <span>Certificate of Excellence · International Recognition</span>
               </div>
 
-              <div className="text-xs font-mono text-muted-foreground uppercase">
-                ◈ CERTIFICATE OF EXCELLENCE ◈
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mt-1 mb-2">
+              <h3 className="font-display text-2xl font-bold text-foreground mt-1 mb-3">
                 {RECOGNITION.title}
               </h3>
 
-              <div className="space-y-3 py-4 my-2 border-y border-border text-sm">
+              <div className="space-y-3 py-4 my-2 border-y border-border/80 text-sm">
                 <div className="flex items-start justify-between gap-2">
-                  <span className="text-muted-foreground">Award Title:</span>
+                  <span className="text-muted-foreground">Award Title</span>
                   <span className="font-bold text-foreground text-right">{RECOGNITION.award}</span>
                 </div>
                 <div className="flex items-start justify-between gap-2">
-                  <span className="text-muted-foreground">Global Ranking:</span>
-                  <span className="font-bold text-brand-cyan text-right">{RECOGNITION.ranking}</span>
+                  <span className="text-muted-foreground">Global Ranking</span>
+                  <span className="font-bold text-accent text-right">{RECOGNITION.ranking}</span>
                 </div>
                 <div className="flex items-start justify-between gap-2">
-                  <span className="text-muted-foreground">Issued By:</span>
+                  <span className="text-muted-foreground">Issued By</span>
                   <span className="text-foreground text-right font-medium">{RECOGNITION.issuedBy}</span>
                 </div>
                 <div className="flex items-start justify-between gap-2">
-                  <span className="text-muted-foreground">Certificate No.:</span>
-                  <span className="font-mono text-xs text-foreground text-right">{RECOGNITION.certNumber}</span>
+                  <span className="text-muted-foreground">Certificate No.</span>
+                  <span className="font-mono text-xs text-foreground text-right tabular-nums">{RECOGNITION.certNumber}</span>
                 </div>
                 <div className="flex items-start justify-between gap-2">
-                  <span className="text-muted-foreground">Date of Issue:</span>
-                  <span className="font-mono text-xs text-foreground text-right">{RECOGNITION.dateOfIssue}</span>
+                  <span className="text-muted-foreground">Date of Issue</span>
+                  <span className="font-mono text-xs text-foreground text-right tabular-nums">{RECOGNITION.dateOfIssue}</span>
                 </div>
               </div>
 
-              <p className="text-xs text-muted-foreground italic leading-relaxed">
+              <p className="text-xs text-muted-foreground italic leading-relaxed mt-3">
                 "{RECOGNITION.citation}"
               </p>
             </div>
 
-            {/* Quick Contact Station */}
-            <div className="p-5 rounded-2xl bg-card border border-border text-xs space-y-2">
-              <div className="font-mono uppercase tracking-wider text-muted-foreground">BASE STATION // AVAILABILITY</div>
-              <div className="text-sm font-semibold text-foreground">Lahore / Islamabad, Pakistan</div>
-              <div className="text-muted-foreground leading-relaxed">
-                Open to Remote, Hybrid, or On-Site International Leadership Engagements. Relocation open for high-impact roles.
+            <div className="intl-card p-5 space-y-1.5">
+              <div className="text-xs font-semibold text-accent">
+                Base Station & Availability
               </div>
+              <div className="font-display text-base font-bold text-foreground">
+                Lahore / Islamabad, Pakistan
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Open to Remote, Hybrid, or On-Site International Leadership Engagements across Europe, the US, UK, and Asia-Pacific.
+              </p>
             </div>
-          </div>
+          </Reveal>
         </div>
 
-        {/* Dual Core Philosophical Codes */}
-        <div className="grid md:grid-cols-2 gap-6 pt-4">
+        {/* Leadership Philosophy Quotes */}
+        <StaggerGrid className="grid md:grid-cols-2 gap-6 pt-2" stagger={0.08}>
           {QUOTES.map((q, idx) => (
-            <div key={idx} className="p-6 sm:p-8 rounded-2xl bg-card border border-border relative flex flex-col justify-between">
-              <Quote className="w-8 h-8 text-brand-accent/20 absolute top-6 right-6" />
-              <div>
-                <div className="text-xs font-mono font-bold text-brand-accent uppercase tracking-wider mb-3">
-                  ◈ {q.title} ◈
+            <StaggerItem key={idx}>
+              <div className="intl-card h-full p-6 sm:p-8 relative flex flex-col justify-between">
+                <Quote className="w-7 h-7 text-accent/15 absolute top-6 right-6 pointer-events-none" />
+                <div>
+                  <div className="text-xs font-semibold text-accent mb-3">
+                    {q.title}
+                  </div>
+                  <blockquote className="text-base sm:text-lg text-foreground font-medium leading-relaxed mb-6">
+                    "{q.quote}"
+                  </blockquote>
                 </div>
-                <blockquote className="text-base sm:text-lg text-foreground font-medium italic leading-relaxed mb-6">
-                  "{q.quote}"
-                </blockquote>
+                <div className="flex items-center justify-between pt-4 border-t border-border/70 text-xs">
+                  <span className="font-bold text-foreground">{q.author}</span>
+                  <span className="text-muted-foreground">{q.role}</span>
+                </div>
               </div>
-              <div className="flex items-center justify-between pt-4 border-t border-border/60 text-xs">
-                <span className="font-bold text-foreground">{q.author}</span>
-                <span className="text-muted-foreground font-mono">{q.role}</span>
-              </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGrid>
       </div>
     </section>
   );

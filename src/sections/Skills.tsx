@@ -1,211 +1,154 @@
 import { Award, GraduationCap, Shield, Terminal } from 'lucide-react';
 import { SKILL_CATEGORIES, TECH_STACK, EDUCATION_DATA, CERTIFICATIONS_DATA } from '../data/portfolioData';
+import { Reveal, StaggerGrid, StaggerItem } from '../components/MotionPrimitives';
 
 export default function Skills() {
-  const getLevelBadgeClass = (level: string) => {
+  const getLevelTextStyle = (level: string) => {
     switch (level.toLowerCase()) {
       case 'expert':
       case 'expert lead':
       case 'certified':
-        return 'text-brand-emerald bg-brand-emerald/10 border-brand-emerald/30';
+        return 'text-brand-emerald';
       case 'specialist':
       case 'senior':
       case 'senior lead':
-        return 'text-brand-cyan bg-brand-cyan/10 border-brand-cyan/30';
+        return 'text-accent';
       case 'author & theorist':
-        return 'text-brand-magenta bg-brand-magenta/10 border-brand-magenta/30';
+        return 'text-brand-violet';
       default:
-        return 'text-brand-amber bg-brand-amber/10 border-brand-amber/30';
+        return 'text-brand-amber';
     }
   };
 
   return (
-    <section id="capabilities" className="py-20 sm:py-28 border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+    <section id="capabilities" className="py-20 sm:py-28 border-b border-border/70">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
         {/* Section Header */}
-        <div className="max-w-3xl">
-          <div className="text-xs font-mono uppercase tracking-wider text-brand-accent mb-2">
-            D2 ▸ CAPABILITY :: SKILLS, STACK & EDUCATION
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+        <Reveal className="max-w-3xl">
+          <p className="text-sm font-semibold text-accent mb-2">
+            Skills, Technology Stack & Credentials
+          </p>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground" style={{ textWrap: 'balance' }}>
             Full-Spectrum Technical & Delivery Mastery
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground mt-3 leading-relaxed">
-            A comprehensive matrix of engineering leadership, system design, quality governance, and formal academic degrees—evaluated by real delivery milestones, not arbitrary percentage bars.
+            Core competencies across IT project governance, system design, automated testing, and verified software engineering credentials.
           </p>
-        </div>
+        </Reveal>
 
-        {/* 1. Core Competency Domains Matrix (Clean Cards - NO PERCENTAGE BARS) */}
+        {/* Core Competency Domains */}
         <div>
-          <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
-            <Shield className="w-5 h-5 text-brand-accent" />
-            Core Competencies & Leadership Domains
-          </h3>
+          <Reveal>
+            <h3 className="font-display text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+              <Shield className="w-5 h-5 text-accent" />
+              <span>Core Competencies & Leadership Domains</span>
+            </h3>
+          </Reveal>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <StaggerGrid className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" stagger={0.05}>
             {SKILL_CATEGORIES.map((cat, idx) => (
-              <div
-                key={idx}
-                className="p-6 rounded-2xl bg-card border border-border shadow-xs hover:border-brand-accent/50 transition-colors"
-              >
-                <h4 className="text-base font-bold text-foreground mb-4 pb-2 border-b border-border/60">
-                  {cat.category}
-                </h4>
+              <StaggerItem key={idx}>
+                <div className="intl-card h-full p-6">
+                  <h4 className="font-display text-base font-bold text-foreground mb-4 pb-2.5 border-b border-border/70">
+                    {cat.category}
+                  </h4>
 
-                <div className="space-y-3">
-                  {cat.skills.map((skill, sIdx) => (
-                    <div key={sIdx} className="flex items-center justify-between text-xs">
-                      <span className="font-medium text-foreground/90">{skill.name}</span>
-                      <span className={`px-2 py-0.5 rounded font-mono font-medium border ${getLevelBadgeClass(skill.level)}`}>
-                        {skill.level}
-                      </span>
-                    </div>
-                  ))}
+                  <div className="space-y-3">
+                    {cat.skills.map((skill, sIdx) => (
+                      <div key={sIdx} className="flex items-center justify-between gap-3 text-xs">
+                        <span className="font-medium text-foreground/90">{skill.name}</span>
+                        <span className={`font-semibold shrink-0 ${getLevelTextStyle(skill.level)}`}>
+                          {skill.level}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerGrid>
         </div>
 
-        {/* 2. Technology Stack Clusters */}
-        <div className="p-8 rounded-3xl bg-card border border-border shadow-sm space-y-8">
+        {/* Technology Stack Clusters */}
+        <Reveal className="intl-card p-6 sm:p-8 space-y-8">
           <div>
-            <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
-              <Terminal className="w-5 h-5 text-brand-accent" />
-              Technology Stack & Tooling Clusters
+            <h3 className="font-display text-xl font-bold text-foreground flex items-center gap-2">
+              <Terminal className="w-5 h-5 text-accent" />
+              <span>Production Technology Stack & Tooling</span>
             </h3>
             <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-              Active engineering tools and platforms utilized across production releases.
+              Active engineering languages, frameworks, Linux environments, and AI pipelines utilized across production releases.
             </p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="space-y-2">
-              <div className="text-xs font-mono font-bold uppercase tracking-wider text-muted-foreground">
-                [ LANGUAGES ]
+            {[
+              { label: '01. Languages', items: TECH_STACK.languages },
+              { label: '02. Frameworks & Platforms', items: TECH_STACK.frameworks },
+              { label: '03. Testing & QA Automation', items: TECH_STACK.testing },
+              { label: '04. Linux & Systems', items: TECH_STACK.systems },
+              { label: '05. Project & PMO Tooling', items: TECH_STACK.tools },
+              { label: '06. AI & Automation', items: TECH_STACK.aiAutomation },
+            ].map((cluster) => (
+              <div key={cluster.label} className="space-y-2 border-t border-border/60 pt-4">
+                <div className="text-xs font-semibold text-accent">
+                  {cluster.label}
+                </div>
+                <p className="text-xs sm:text-sm text-foreground/85 leading-relaxed">
+                  {cluster.items.join(' · ')}
+                </p>
               </div>
-              <div className="flex flex-wrap gap-1.5">
-                {TECH_STACK.languages.map((item, i) => (
-                  <span key={i} className="px-2.5 py-1 text-xs rounded-md bg-muted/60 text-foreground border border-border">
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <div className="text-xs font-mono font-bold uppercase tracking-wider text-muted-foreground">
-                [ FRAMEWORKS & PLATFORMS ]
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {TECH_STACK.frameworks.map((item, i) => (
-                  <span key={i} className="px-2.5 py-1 text-xs rounded-md bg-muted/60 text-foreground border border-border">
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <div className="text-xs font-mono font-bold uppercase tracking-wider text-muted-foreground">
-                [ TESTING & QA AUTOMATION ]
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {TECH_STACK.testing.map((item, i) => (
-                  <span key={i} className="px-2.5 py-1 text-xs rounded-md bg-muted/60 text-foreground border border-border">
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <div className="text-xs font-mono font-bold uppercase tracking-wider text-muted-foreground">
-                [ LINUX & SYSTEMS ]
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {TECH_STACK.systems.map((item, i) => (
-                  <span key={i} className="px-2.5 py-1 text-xs rounded-md bg-muted/60 text-foreground border border-border">
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <div className="text-xs font-mono font-bold uppercase tracking-wider text-muted-foreground">
-                [ PROJECT & PMO TOOLING ]
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {TECH_STACK.tools.map((item, i) => (
-                  <span key={i} className="px-2.5 py-1 text-xs rounded-md bg-muted/60 text-foreground border border-border">
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <div className="text-xs font-mono font-bold uppercase tracking-wider text-muted-foreground">
-                [ AI & AUTOMATION ]
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {TECH_STACK.aiAutomation.map((item, i) => (
-                  <span key={i} className="px-2.5 py-1 text-xs rounded-md bg-brand-accent/10 text-brand-accent border border-brand-accent/30 font-medium">
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
-        </div>
+        </Reveal>
 
-        {/* 3. Education & Certifications Split */}
+        {/* Verified Academic Education & Certifications */}
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* Education Table / Cards */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-card border border-border shadow-xs space-y-6">
-            <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
-              <GraduationCap className="w-5 h-5 text-brand-accent" />
-              Academic Degrees & Diplomas
+          <Reveal className="intl-card p-6 sm:p-8 space-y-6">
+            <h3 className="font-display text-xl font-bold text-foreground flex items-center gap-2">
+              <GraduationCap className="w-5 h-5 text-accent" />
+              <span>Verified Academic Degrees & Diplomas</span>
             </h3>
 
             <div className="space-y-4">
               {EDUCATION_DATA.map((edu, idx) => (
-                <div key={idx} className="p-4 rounded-xl bg-muted/20 border border-border/70 space-y-1">
+                <div key={idx} className="p-4 rounded-xl bg-muted/40 border border-border/70 space-y-1.5">
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="font-bold text-foreground text-sm">{edu.degree}</span>
-                    <span className="text-[11px] font-mono text-brand-emerald bg-brand-emerald/10 px-2 py-0.5 rounded">
+                    <span className="font-display font-bold text-foreground text-sm">{edu.degree}</span>
+                    <span className="text-xs font-mono font-semibold text-brand-emerald tabular-nums">
                       {edu.year}
                     </span>
                   </div>
-                  <div className="text-xs text-brand-accent font-medium">{edu.institution}</div>
-                  <div className="text-xs text-muted-foreground pt-1">{edu.highlight}</div>
+                  <div className="text-xs font-semibold text-accent">{edu.institution}</div>
+                  <div className="text-xs text-muted-foreground pt-0.5">{edu.highlight}</div>
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
 
-          {/* Certifications Table / Cards */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-card border border-border shadow-xs space-y-6">
-            <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
+          <Reveal delay={0.08} className="intl-card p-6 sm:p-8 space-y-6">
+            <h3 className="font-display text-xl font-bold text-foreground flex items-center gap-2">
               <Award className="w-5 h-5 text-brand-amber" />
-              Professional Certifications & Credentials
+              <span>Professional Certifications & Honours</span>
             </h3>
 
             <div className="space-y-3">
               {CERTIFICATIONS_DATA.map((cert, idx) => (
-                <div key={idx} className="p-3.5 rounded-xl bg-muted/20 border border-border/70 flex items-center justify-between gap-3 text-xs">
+                <div
+                  key={idx}
+                  className="p-3.5 rounded-xl bg-muted/40 border border-border/70 flex items-center justify-between gap-3 text-xs"
+                >
                   <div>
                     <div className="font-bold text-foreground">{cert.title}</div>
                     <div className="text-muted-foreground mt-0.5">{cert.domain}</div>
                   </div>
-                  <span className="px-2.5 py-1 rounded font-mono font-semibold bg-foreground/10 text-foreground whitespace-nowrap">
+                  <span className="font-mono text-xs font-semibold text-accent whitespace-nowrap shrink-0">
                     {cert.level}
                   </span>
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
